@@ -106,6 +106,8 @@ dist
 # Ignore .idea folder
 .idea
 
-# Ignore .js and .d.ts files
+# Ignore TypeScript build output
 *.js
 *.d.ts
+*.js.map
+*.d.ts.map
