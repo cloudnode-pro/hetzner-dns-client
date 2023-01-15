@@ -76,7 +76,8 @@ class HetznerDnsClient {
             headers: {
                 "Content-Type": contentType,
                 "Auth-API-Token": this.token,
-            }
+            },
+            follow: 0
         };
         if (body && ["POST", "PUT"].includes(method)) {
             params.body = JSON.stringify(body);
