@@ -1,4 +1,4 @@
-import fetch, {RequestInit, Response} from "node-fetch";
+import fetch, {BodyInit, RequestInit, Response} from "node-fetch";
 import ApiResponse from "./ApiResponse.js";
 import Zone from "./Zone.js";
 import ZoneModelWrapped from "./models/ZoneModelWrapped.js";
@@ -144,7 +144,7 @@ class HetznerDnsClient {
         method: "GET" | "POST" | "PUT" | "DELETE",
         path: string,
         contentType?: string,
-        body?: any,
+        body?: BodyInit,
         query?: Record<string, string | number> | URLSearchParams
     ): Promise<ApiResponse<T>>;
     /**
@@ -163,7 +163,7 @@ class HetznerDnsClient {
         method: "GET" | "POST" | "PUT" | "DELETE",
         path: string,
         contentType?: string,
-        body?: any,
+        body?: BodyInit | Record<string, any>,
         query?: Record<string, string | number> | URLSearchParams
     ): Promise<ApiResponse<T>> {
         const url = new URL(path, this.baseUrl);
@@ -181,7 +181,7 @@ class HetznerDnsClient {
         };
         if (contentType && body && ["POST", "PUT"].includes(method)) {
             params.headers["Content-Type"] = contentType;
-            params.body = contentType === "application/json" ? JSON.stringify(body) : body;
+            params.body = contentType === "application/json" ? JSON.stringify(body as Record<string, any>) : body as BodyInit;
         }
         const response: Response = await fetch(url.toString(), params);
         const responseBodyRaw: ArrayBuffer = await response.arrayBuffer();
