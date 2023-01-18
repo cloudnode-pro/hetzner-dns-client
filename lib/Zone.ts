@@ -63,6 +63,7 @@ export default class Zone extends ClientObject<ZoneModel> {
     /**
      * Delete this zone
      * @returns {Promise<void>}
+     * @throws {ApiError}
      */
     public async delete(): Promise<void> {
         await this.client.zones.delete(this.id);
