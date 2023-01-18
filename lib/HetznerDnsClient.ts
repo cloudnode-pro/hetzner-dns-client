@@ -5,6 +5,8 @@ import ZoneModelWrapped from "./models/ZoneModelWrapped.js";
 import ClientParseError from "./errors/ClientParseError.js";
 import ErrorModel from "./models/ErrorModel.js";
 import ApiError from "./errors/ApiError.js";
+import Zones from "./Zones.js";
+import PaginatedZones from "./models/PaginatedZones";
 
 /**
  * Hetzner DNS API client for Node.js
@@ -31,6 +33,28 @@ class HetznerDnsClient {
      */
     public zones = {
         /**
+         * Get all Zones
+         * @param {Object} [options] - Search options
+         * @param {string} [options.name] - Full name of a zone. Will return an array with one or no results. Example: `example.com`
+         * @param {number} [options.page] - A page parameter specifies the page to fetch. The number of the first page is 1. Must be >= 1.
+         * @param {number} [options.perPage] - Number of zones to be shown per page. Returns 100 by default. Maximum 100.
+         * @param {string} [options.searchName] - Partial name of a zone. Will return an array with zones that contain the searched string. Example: `example`
+         * @returns {Promise<Zones>}
+         */
+        getAll: async (options?: {name?: string, page?: number, perPage?: number, searchName?: string}): Promise<Zones> => {
+            options ??= {};
+            const query = new URLSearchParams();
+            if (options.name) query.set("name", options.name);
+            if (options.page) query.set("page", options.page.toString());
+            if (options.perPage) query.set("per_page", options.perPage.toString());
+            if (options.searchName) query.set("search_name", options.searchName);
+            const response: ApiResponse<PaginatedZones> = await this.request("GET", "zones", void 0, void 0, query);
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new Zones(this, res, options);
+        },
+
+        /**
          * Create Zone
          * @param {string} name - See {@link {Zone#name}}
          * @param {number} [ttl] - See {@link {Zone#ttl}}
@@ -43,7 +67,7 @@ class HetznerDnsClient {
             });
             const res = response.json;
             if (res === null) throw new ClientParseError();
-            return new Zone(this, res);
+            return new Zone(this, res.zone);
         },
 
         /**
@@ -55,7 +79,7 @@ class HetznerDnsClient {
             const response: ApiResponse<ZoneModelWrapped> = await this.request("GET", `zones/${id}`);
             const res = response.json;
             if (res === null) throw new ClientParseError();
-            return new Zone(this, res);
+            return new Zone(this, res.zone);
         },
 
         /**
@@ -72,7 +96,7 @@ class HetznerDnsClient {
             });
             const res = response.json;
             if (res === null) throw new ClientParseError();
-            return new Zone(this, res);
+            return new Zone(this, res.zone);
         },
 
         /**
@@ -102,7 +126,7 @@ class HetznerDnsClient {
         path: string,
         contentType: "application/json",
         body: Record<string, any>,
-        query?: Record<string, string | number>
+        query?: Record<string, string | number> | URLSearchParams
     ): Promise<ApiResponse<T>>;
     /**
      * Send a request to the Hetzner DNS API
@@ -121,7 +145,7 @@ class HetznerDnsClient {
         path: string,
         contentType?: string,
         body?: any,
-        query?: Record<string, string | number>
+        query?: Record<string, string | number> | URLSearchParams
     ): Promise<ApiResponse<T>>;
     /**
      * Send a request to the Hetzner DNS API
@@ -140,13 +164,14 @@ class HetznerDnsClient {
         path: string,
         contentType?: string,
         body?: any,
-        query?: Record<string, string | number>
+        query?: Record<string, string | number> | URLSearchParams
     ): Promise<ApiResponse<T>> {
         const url = new URL(path, this.baseUrl);
-        if (query) {
+        if (query && !(query instanceof URLSearchParams)) {
             const stringQuery = Object.fromEntries(Object.entries(query).map(([key, value]) => [key, String(value)]));
             url.search = new URLSearchParams(stringQuery).toString();
         }
+        else if (query) url.search = query.toString();
         const params: RequestInit & {headers: Record<string, string>} = {
             method,
             headers: {
