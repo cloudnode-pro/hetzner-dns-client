@@ -1,12 +1,13 @@
 import HetznerDnsClient from "./HetznerDnsClient.js";
 import {Response, RequestInit} from "node-fetch";
+import ErrorModel from "./models/ErrorModel.js";
 
 /**
  * API response object
  * @class
  * @template T - Response data model
  */
-export default class ApiResponse<T> {
+export default class ApiResponse<T extends ErrorModel> {
 
     /**
      * Fetch response
