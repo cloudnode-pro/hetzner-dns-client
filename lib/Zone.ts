@@ -17,7 +17,7 @@ export default class Zone extends ClientObject<ZoneModel> {
     public readonly id = this._data.zone.id;
 
     /**
-     * Zone name
+     * Zone name (i.e. domain name)
      * @type {string}
      * @readonly
      */
