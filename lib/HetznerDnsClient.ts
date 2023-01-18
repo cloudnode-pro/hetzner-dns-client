@@ -112,6 +112,21 @@ class HetznerDnsClient {
         delete: async (id: string): Promise<void> => {
             await this.request("DELETE", `zones/${id}`);
         },
+
+        /**
+         * Import Zone file plain
+         * @param {string} id - ID of zone to import to
+         * @param {string | Uint8Array | Buffer | readonly number[]} file - Zone file contents to import
+         * @returns {Promise<Zone>}
+         * @throws {ApiError}
+         */
+        importZone: async (id: string, file: string | Uint8Array | Buffer | readonly number[]): Promise<Zone> => {
+            const data = Buffer.from(file);
+            const response: ApiResponse<ZoneModelWrapped> = await this.request("POST", `zones/${id}/import`, "text/plain", data);
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new Zone(this, res.zone);
+        }
     } as const;
 
     /**

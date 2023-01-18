@@ -71,6 +71,16 @@ export default class Zone extends ClientObject<ZoneModel> {
     }
 
     /**
+     * Import records from a zone file
+     * @param {string | Uint8Array | Buffer | readonly number[]} file - Zone file contents
+     * @returns {Promise<Zone>} - The updated zone object. **Note**: Avoid using the old object after updating it to avoid inconsistencies. You should use the new zone object returned by this method.
+     * @throws {ApiError}
+     */
+    public async importZone(file: string | Uint8Array | Buffer | readonly number[]): Promise<Zone> {
+        return await this.client.zones.importZone(this.id, file);
+    }
+
+    /**
      * Delete this zone
      * @returns {Promise<void>}
      * @throws {ApiError}
