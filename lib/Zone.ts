@@ -81,6 +81,15 @@ export default class Zone extends ClientObject<ZoneModel> {
     }
 
     /**
+     * Export zone file
+     * @returns {Promise<string>} - Zone file contents
+     * @throws {ApiError}
+     */
+    public async exportZone(): Promise<string> {
+        return await this.client.zones.exportZone(this.id);
+    }
+
+    /**
      * Delete this zone
      * @returns {Promise<void>}
      * @throws {ApiError}

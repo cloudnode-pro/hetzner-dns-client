@@ -126,6 +126,17 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new Zone(this, res.zone);
+        },
+
+        /**
+         * Export Zone file
+         * @param {string} id - ID of zone to export
+         * @returns {Promise<string>}
+         * @throws {ApiError}
+         */
+        exportZone: async (id: string): Promise<string> => {
+            const response: ApiResponse<any> = await this.request("GET", `zones/${id}/export`);
+            return response.body;
         }
     } as const;
 
