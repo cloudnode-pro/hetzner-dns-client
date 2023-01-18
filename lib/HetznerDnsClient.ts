@@ -31,7 +31,7 @@ class HetznerDnsClient {
      */
     public zones = {
         /**
-         * Get a zone
+         * Get Zone
          * @param {string} id - ID of zone to get
          * @returns {Zone}
          */
@@ -43,13 +43,13 @@ class HetznerDnsClient {
         },
 
         /**
-         * Delete a zone
+         * Delete Zone
          * @param {string} id - ID of zone to delete
          * @returns {Promise<void>}
          */
         delete: async (id: string): Promise<void> => {
             await this.request("DELETE", `zones/${id}`);
-        }
+        },
     } as const;
 
     /**
