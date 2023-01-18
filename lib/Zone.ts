@@ -1,13 +1,13 @@
 import ClientObject from "./ClientObject.js";
 import HetznerDnsClient from "./HetznerDnsClient.js";
-import ZoneModel from "./models/ZoneModel.js";
+import ZoneModelWrapped from "./models/ZoneModelWrapped.js";
 
 /**
  * Hetzner DNS Zone
  * @class
  * @extends {ClientObject}
  */
-export default class Zone extends ClientObject<ZoneModel> {
+export default class Zone extends ClientObject<ZoneModelWrapped> {
 
     /**
      * Zone ID
@@ -56,7 +56,7 @@ export default class Zone extends ClientObject<ZoneModel> {
      * @param {HetznerDnsClient} client - API client instance
      * @param {ZoneModel} data - Raw zone data
      */
-    public constructor(client: HetznerDnsClient, data: ZoneModel) {
+    public constructor(client: HetznerDnsClient, data: ZoneModelWrapped) {
         super(client, data);
     }
 

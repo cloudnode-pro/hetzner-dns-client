@@ -1,7 +1,7 @@
 import fetch, {RequestInit, Response} from "node-fetch";
 import ApiResponse from "./ApiResponse.js";
 import Zone from "./Zone.js";
-import ZoneModel from "./models/ZoneModel.js";
+import ZoneModelWrapped from "./models/ZoneModelWrapped.js";
 import ClientParseError from "./errors/ClientParseError.js";
 import ErrorModel from "./models/ErrorModel.js";
 import ApiError from "./errors/ApiError.js";
@@ -37,7 +37,7 @@ class HetznerDnsClient {
          * @returns {Promise<Zone>}
          */
         create: async (name: string, ttl?: number): Promise<Zone> => {
-            const response: ApiResponse<ZoneModel> = await this.request("POST", "zones", "application/json", {
+            const response: ApiResponse<ZoneModelWrapped> = await this.request("POST", "zones", "application/json", {
                 name,
                 ttl,
             });
@@ -52,7 +52,7 @@ class HetznerDnsClient {
          * @returns {Zone}
          */
         get: async (id: string): Promise<Zone> => {
-            const response: ApiResponse<ZoneModel> = await this.request("GET", `zones/${id}`);
+            const response: ApiResponse<ZoneModelWrapped> = await this.request("GET", `zones/${id}`);
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new Zone(this, res);
@@ -66,7 +66,7 @@ class HetznerDnsClient {
          * @returns {Promise<Zone>}
          */
         update: async (id: string, name: string, ttl?: number): Promise<Zone> => {
-            const response: ApiResponse<ZoneModel> = await this.request("PUT", `zones/${id}`, "application/json", {
+            const response: ApiResponse<ZoneModelWrapped> = await this.request("PUT", `zones/${id}`, "application/json", {
                 name,
                 ttl,
             });
