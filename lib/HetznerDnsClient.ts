@@ -30,7 +30,7 @@ class HetznerDnsClient {
     }
 
     /**
-     * # Zones
+     * ## Zones
      * A secondary zone can be created, by adding a primary server before adding any records.
      */
     public zones = {
@@ -163,6 +163,11 @@ class HetznerDnsClient {
             return new ZoneValidationPretty(this, res);
         }
     } as const;
+
+    /**
+     * ## Records
+     */
+    public records = {} as const;
 
     /**
      * Send a request to the Hetzner DNS API
