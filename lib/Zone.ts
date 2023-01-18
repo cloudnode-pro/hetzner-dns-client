@@ -5,7 +5,7 @@ import ZoneModel from "./models/ZoneModel";
 /**
  * Hetzner DNS Zone
  * @class
- * @extends {ClientObject}
+ * @extends {ClientObject<ZoneModel>}
  */
 export default class Zone extends ClientObject<ZoneModel> {
 
