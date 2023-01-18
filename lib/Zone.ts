@@ -8,14 +8,6 @@ import ZoneModel from "./models/ZoneModel.js";
  * @extends {ClientObject}
  */
 export default class Zone extends ClientObject<ZoneModel> {
-    /**
-     * Create a new zone object
-     * @param {HetznerDnsClient} client - API client instance
-     * @param {ZoneModel} data - Raw zone data
-     */
-    public constructor(client: HetznerDnsClient, data: ZoneModel) {
-        super(client, data);
-    }
 
     /**
      * Zone ID
@@ -59,4 +51,12 @@ export default class Zone extends ClientObject<ZoneModel> {
      * @readonly
      */
     public readonly recordsCount = this._data.zone.records_count;
+    /**
+     * Create a new zone object
+     * @param {HetznerDnsClient} client - API client instance
+     * @param {ZoneModel} data - Raw zone data
+     */
+    public constructor(client: HetznerDnsClient, data: ZoneModel) {
+        super(client, data);
+    }
 }
