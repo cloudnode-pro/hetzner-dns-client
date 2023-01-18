@@ -40,6 +40,7 @@ class HetznerDnsClient {
          * @param {number} [options.perPage] - Number of zones to be shown per page. Returns 100 by default. Maximum 100.
          * @param {string} [options.searchName] - Partial name of a zone. Will return an array with zones that contain the searched string. Example: `example`
          * @returns {Promise<Zones>}
+         * @throws {ApiError}
          */
         getAll: async (options?: {name?: string, page?: number, perPage?: number, searchName?: string}): Promise<Zones> => {
             options ??= {};
@@ -59,6 +60,7 @@ class HetznerDnsClient {
          * @param {string} name - See {@link {Zone#name}}
          * @param {number} [ttl] - See {@link {Zone#ttl}}
          * @returns {Promise<Zone>}
+         * @throws {ApiError}
          */
         create: async (name: string, ttl?: number): Promise<Zone> => {
             const response: ApiResponse<ZoneModelWrapped> = await this.request("POST", "zones", "application/json", {
@@ -74,6 +76,7 @@ class HetznerDnsClient {
          * Get Zone
          * @param {string} id - ID of zone to get
          * @returns {Zone}
+         * @throws {ApiError}
          */
         get: async (id: string): Promise<Zone> => {
             const response: ApiResponse<ZoneModelWrapped> = await this.request("GET", `zones/${id}`);
@@ -88,6 +91,7 @@ class HetznerDnsClient {
          * @param {string} name - The current name of the zone. Changing zone name is not possible.
          * @param {number} [ttl] - New TTL of the zone (see {@link {Zone#ttl}})
          * @returns {Promise<Zone>}
+         * @throws {ApiError}
          */
         update: async (id: string, name: string, ttl?: number): Promise<Zone> => {
             const response: ApiResponse<ZoneModelWrapped> = await this.request("PUT", `zones/${id}`, "application/json", {
@@ -103,6 +107,7 @@ class HetznerDnsClient {
          * Delete Zone
          * @param {string} id - ID of zone to delete
          * @returns {Promise<void>}
+         * @throws {ApiError}
          */
         delete: async (id: string): Promise<void> => {
             await this.request("DELETE", `zones/${id}`);
