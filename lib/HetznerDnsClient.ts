@@ -143,6 +143,8 @@ class HetznerDnsClient {
 
         /**
          * Validate Zone file plain
+         * 
+         * **Warning:** As of Jan 19, 2023, this endpoint appears to always return an empty array for valid records.
          * @param {string | Uint8Array | Buffer | readonly number[]} file - Zone file contents to validate
          * @returns {Promise<ZoneValidation>}
          * @throws {ApiError}
