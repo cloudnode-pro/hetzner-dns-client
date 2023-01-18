@@ -61,16 +61,6 @@ export default class Zone extends ClientObject<ZoneModel> {
     }
 
     /**
-     * Change zone (domain) name
-     * @param {string} name - New zone name
-     * @returns {Promise<Zone>} - The updated zone object. **Note**: Avoid using the old object after updating it to avoid inconsistencies. You should use the new zone object returned by this method.
-     * @throws {ApiError}
-     */
-    public async setName(name: string): Promise<void> {
-        await this.client.zones.update(this.id, name, this.ttl);
-    }
-
-    /**
      * Change zone default TTL (time to live)
      * @param {number} ttl - New zone default TTL
      * @returns {Promise<Zone>} - The updated zone object. **Note**: Avoid using the old object after updating it to avoid inconsistencies. You should use the new zone object returned by this method.
