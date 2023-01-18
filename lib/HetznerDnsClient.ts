@@ -80,6 +80,25 @@ class HetznerDnsClient {
         contentType?: string,
         body?: any,
         query?: Record<string, string | number>
+    ): Promise<ApiResponse<T>>;
+    /**
+     * Send a request to the Hetzner DNS API
+     * @param {"GET" | "POST" | "PUT" | "DELETE"} method - HTTP method
+     * @param {string} path - Path to the API endpoint
+     * @param {string} [contentType] - Content type of the request body
+     * @param {any} [body] - Request body
+     * @param {Record<string, string|number>} [query] - Query parameters
+     * @template T - Type of the response body
+     * @returns {Promise<T>} - Response body
+     * @throws {ApiError}
+     * @private
+     */
+    private async request<T extends ErrorModel>(
+        method: "GET" | "POST" | "PUT" | "DELETE",
+        path: string,
+        contentType?: string,
+        body?: any,
+        query?: Record<string, string | number>
     ): Promise<ApiResponse<T>> {
         const url = new URL(path, this.baseUrl);
         if (query) {
