@@ -130,8 +130,13 @@ class HetznerDnsClient {
         const apiResponse = new ApiResponse<T>(response, responseBodyRaw, params, this);
         if (response.status >= 400 || response.status < 200) {
             if (apiResponse.json) {
+                // non-standard error
+                if (typeof apiResponse.json.error === "string") {
+                    const message = ApiError.specialMessages[apiResponse.json.error];
+                    if (message) throw new ApiError(message.message, message.code, apiResponse);
+                }
                 // standard errors
-                if (apiResponse.json.error) {
+                else if (apiResponse.json.error) {
                     const message = ApiError.messages[apiResponse.json.error.message];
                     if (message) throw new ApiError(message, apiResponse.json.error.code, apiResponse);
                     throw new ApiError("Unknown error", apiResponse.json.error.code, apiResponse);

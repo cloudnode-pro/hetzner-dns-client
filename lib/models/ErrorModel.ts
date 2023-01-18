@@ -14,7 +14,7 @@ export default interface ErrorModel {
          * Error code
          */
         code: number;
-    },
+    } | string,
     /**
      * Error message
      * @type {string}
