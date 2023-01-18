@@ -66,8 +66,8 @@ export default class Zone extends ClientObject<ZoneModel> {
      * @returns {Promise<Zone>} - The updated zone object. **Note**: Avoid using the old object after updating it to avoid inconsistencies. You should use the new zone object returned by this method.
      * @throws {ApiError}
      */
-    public async setTtl(ttl: number): Promise<void> {
-        await this.client.zones.update(this.id, this.name, ttl);
+    public async setTtl(ttl: number): Promise<Zone> {
+        return await this.client.zones.update(this.id, this.name, ttl);
     }
 
     /**
