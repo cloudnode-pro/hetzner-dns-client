@@ -56,6 +56,13 @@ export default class ApiError extends Error {
      */
     public static readonly messages: Record<string, string> = {
         "zone not found": "Zone not found",
+        "zone already exists": "A zone with the specified (domain) name already exists",
+        "422 Unprocessable Entity: ": "The specified (domain) name or TTL is invalid or a zone with that name already exists",
+        "422 : invalid zone name": "The specified zone (domain) name is invalid",
+        "422 : invalid TLD": "The specified top-level domain (TLD) is invalid",
+        "422 Unprocessable Entity: invalid label must not start with a dash": "Zone (domain) name must not start with a dash",
+        "422 Unprocessable Entity: invalid invalid character for domain name": "Zone (domain) name contains invalid character(s)",
+        "422 : empty zone name": "Zone (domain) name must not be empty",
     };
 
     /**
@@ -76,5 +83,9 @@ export default class ApiError extends Error {
             code: 404,
             message: "The API endpoint was not found"
         },
+        "json not valid": {
+            code: 400,
+            message: "Invalid parameters were provided"
+        }
     }
 }
