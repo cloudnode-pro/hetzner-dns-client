@@ -2,7 +2,9 @@ import fetch, {RequestInit, Response} from "node-fetch";
 import ApiResponse from "./ApiResponse.js";
 import Zone from "./Zone.js";
 import ZoneModel from "./models/ZoneModel.js";
-import ClientParseError from "./models/Errors/ClientParseError.js";
+import ClientParseError from "./errors/ClientParseError.js";
+import ErrorModel from "./models/ErrorModel.js";
+import ApiError from "./errors/ApiError.js";
 
 /**
  * Hetzner DNS API client for Node.js
@@ -45,25 +47,38 @@ class HetznerDnsClient {
      * Send a request to the Hetzner DNS API
      * @param {"GET" | "POST" | "PUT" | "DELETE"} method - HTTP method
      * @param {string} path - Path to the API endpoint
+     * @param {"application/json"} contentType - Content type of the request body
+     * @param {Record<string, any>} body - Request body
      * @param {Record<string, string|number>} [query] - Query parameters
-     * @param {string} [contentType] - Content type of the request body
-     * @param {any} [body] - Request body
      * @template T - Type of the response body
      * @returns {Promise<T>} - Response body
+     * @throws {ApiError}
      * @private
      */
-    private async request<T>(
-        method: "GET" | "POST" | "PUT" | "DELETE",
-        path: string,
-        contentType?: string,
-        body?: any,
-        query?: Record<string, string | number>
-    ): Promise<ApiResponse<T>>;
-    private async request<T>(
+    private async request<T extends ErrorModel>(
         method: "GET" | "POST" | "PUT" | "DELETE",
         path: string,
         contentType: "application/json",
         body: Record<string, any>,
+        query?: Record<string, string | number>
+    ): Promise<ApiResponse<T>>;
+    /**
+     * Send a request to the Hetzner DNS API
+     * @param {"GET" | "POST" | "PUT" | "DELETE"} method - HTTP method
+     * @param {string} path - Path to the API endpoint
+     * @param {string} [contentType] - Content type of the request body
+     * @param {any} [body] - Request body
+     * @param {Record<string, string|number>} [query] - Query parameters
+     * @template T - Type of the response body
+     * @returns {Promise<T>} - Response body
+     * @throws {ApiError}
+     * @private
+     */
+    private async request<T extends ErrorModel>(
+        method: "GET" | "POST" | "PUT" | "DELETE",
+        path: string,
+        contentType?: string,
+        body?: any,
         query?: Record<string, string | number>
     ): Promise<ApiResponse<T>> {
         const url = new URL(path, this.baseUrl);
@@ -71,20 +86,47 @@ class HetznerDnsClient {
             const stringQuery = Object.fromEntries(Object.entries(query).map(([key, value]) => [key, String(value)]));
             url.search = new URLSearchParams(stringQuery).toString();
         }
-        const params: RequestInit = {
+        const params: RequestInit & {headers: Record<string, string>} = {
             method,
             headers: {
-                "Content-Type": contentType,
                 "Auth-API-Token": this.#token,
             },
             follow: 0
         };
-        if (body && ["POST", "PUT"].includes(method)) {
-            params.body = JSON.stringify(body);
+        if (contentType && body && ["POST", "PUT"].includes(method)) {
+            params.headers["Content-Type"] = contentType;
+            params.body = contentType === "application/json" ? JSON.stringify(body) : body;
         }
         const response: Response = await fetch(url.toString(), params);
         const responseBodyRaw: ArrayBuffer = await response.arrayBuffer();
-        return new ApiResponse<T>(response, responseBodyRaw, params, this);
+        const apiResponse = new ApiResponse<T>(response, responseBodyRaw, params, this);
+        if (response.status >= 400 || response.status < 200) {
+            if (apiResponse.json) {
+                // standard errors
+                if (apiResponse.json.error) {
+                    const message = ApiError.messages[apiResponse.json.error.message];
+                    if (message) throw new ApiError(message, apiResponse.json.error.code, apiResponse);
+                    throw new ApiError("Unknown error", apiResponse.json.error.code, apiResponse);
+                }
+                // special JSON errors
+                else if (apiResponse.json.message) {
+                    const message = ApiError.specialMessages[apiResponse.json.message];
+                    if (message) throw new ApiError(message.message, message.code, apiResponse);
+                }
+                throw new ApiError("Unknown error", response.status, apiResponse);
+            }
+            // special errors
+            else {
+                Object.keys(ApiError.specialMessages).forEach((key) => {
+                    if (apiResponse.body.includes(key)) {
+                        const message = ApiError.specialMessages[key];
+                        if (message) throw new ApiError(message.message, message.code, apiResponse);
+                    }
+                });
+                throw new ApiError("Unknown error", response.status, apiResponse);
+            }
+        }
+        return apiResponse;
     }
 }
 
