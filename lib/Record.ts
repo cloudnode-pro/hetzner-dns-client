@@ -78,6 +78,7 @@ class Record extends ClientObject<RecordModel> {
      * Get the zone object this record belongs to
      * @returns {Promise<Zone>}
      * @throws {ApiError}
+     * @throws {ClientParseError}
      */
     public async getZone(): Promise<Zone> {
         return await this.client.zones.get(this.zoneId);

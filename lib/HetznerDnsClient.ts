@@ -43,6 +43,7 @@ class HetznerDnsClient {
          * @param {string} [options.searchName] - Partial name of a zone. Will return an array with zones that contain the searched string. Example: `example`
          * @returns {Promise<Zones>}
          * @throws {ApiError}
+         * @throws {ClientParseError}
          */
         getAll: async (options?: {name?: string, page?: number, perPage?: number, searchName?: string}): Promise<Zones> => {
             options ??= {};
@@ -63,6 +64,7 @@ class HetznerDnsClient {
          * @param {number} [ttl] - See {@link {Zone#ttl}}
          * @returns {Promise<Zone>}
          * @throws {ApiError}
+         * @throws {ClientParseError}
          */
         create: async (name: string, ttl?: number): Promise<Zone> => {
             const response: ApiResponse<ZoneModelWrapped> = await this.request("POST", "zones", "application/json", {
@@ -79,6 +81,7 @@ class HetznerDnsClient {
          * @param {string} id - ID of zone to get
          * @returns {Zone}
          * @throws {ApiError}
+         * @throws {ClientParseError}
          */
         get: async (id: string): Promise<Zone> => {
             const response: ApiResponse<ZoneModelWrapped> = await this.request("GET", `zones/${id}`);
@@ -94,6 +97,7 @@ class HetznerDnsClient {
          * @param {number} [ttl] - New TTL of the zone (see {@link {Zone#ttl}})
          * @returns {Promise<Zone>}
          * @throws {ApiError}
+         * @throws {ClientParseError}
          */
         update: async (id: string, name: string, ttl?: number): Promise<Zone> => {
             const response: ApiResponse<ZoneModelWrapped> = await this.request("PUT", `zones/${id}`, "application/json", {
@@ -121,6 +125,7 @@ class HetznerDnsClient {
          * @param {string | Uint8Array | Buffer | readonly number[]} file - Zone file contents to import
          * @returns {Promise<Zone>}
          * @throws {ApiError}
+         * @throws {ClientParseError}
          */
         importZone: async (id: string, file: string | Uint8Array | Buffer | readonly number[]): Promise<Zone> => {
             const data = Buffer.from(file);
@@ -143,11 +148,12 @@ class HetznerDnsClient {
 
         /**
          * Validate Zone file plain
-         * 
+         *
          * **Warning:** As of Jan 19, 2023, this endpoint appears to always return an empty array for valid records.
          * @param {string | Uint8Array | Buffer | readonly number[]} file - Zone file contents to validate
          * @returns {Promise<ZoneValidation>}
          * @throws {ApiError}
+         * @throws {ClientParseError}
          */
         validateZone: async (file: string | Uint8Array | Buffer | readonly number[]): Promise<ZoneValidationPretty> => {
             const data = Buffer.from(file);
