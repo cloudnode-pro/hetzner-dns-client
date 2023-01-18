@@ -1,8 +1,10 @@
+import ErrorModel from "./ErrorModel.js";
+
 /**
  * Hetzner DNS zone model
  * @interface
  */
-export default interface ZoneModel {
+export default interface ZoneModel extends ErrorModel{
     zone: {
         /**
          * Unique identifier of the zone
