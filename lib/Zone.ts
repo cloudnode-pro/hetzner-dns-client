@@ -22,52 +22,41 @@ export default class Zone extends ClientObject<ZoneModel> {
      * @type {string}
      * @readonly
      */
-    public get id(): string {
-        return this._data.zone.id;
-    }
+    public readonly id = this._data.zone.id;
 
     /**
      * Zone name
      * @type {string}
      * @readonly
      */
-    public get name(): string {
-        return this._data.zone.name;
-    }
+
+    public readonly name = this._data.zone.name;
 
     /**
      * Zone creation time
      * @type {Date}
      * @readonly
      */
-    public get created(): Date {
-        return new Date(this._data.zone.created);
-    }
+    public readonly created = new Date(this._data.zone.created);
 
     /**
      * Zone modification time
      * @type {Date}
      * @readonly
      */
-    public get modified(): Date {
-        return new Date(this._data.zone.modified);
-    }
+    public readonly modified = new Date(this._data.zone.modified);
 
     /**
      * Zone default TTL (time to live) in seconds
      * @type {number}
      * @readonly
      */
-    public get ttl(): number {
-        return this._data.zone.ttl;
-    }
+    public readonly ttl = this._data.zone.ttl;
 
     /**
      * The number of records in this zone
      * @type {number}
      * @readonly
      */
-    public get recordsCount(): number {
-        return this._data.zone.records_count;
-    }
+    public readonly recordsCount = this._data.zone.records_count;
 }
