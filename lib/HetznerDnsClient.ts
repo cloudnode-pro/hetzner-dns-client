@@ -33,10 +33,10 @@ class HetznerDnsClient {
         /**
          * Create Zone
          * @param {string} name - See {@link {Zone#name}}
-         * @param {number} [ttl=86400] - See {@link {Zone#ttl}}
+         * @param {number} [ttl] - See {@link {Zone#ttl}}
          * @returns {Promise<Zone>}
          */
-        create: async (name: string, ttl: number = 86400): Promise<Zone> => {
+        create: async (name: string, ttl?: number): Promise<Zone> => {
             const response: ApiResponse<ZoneModel> = await this.request("POST", "zones", "application/json", {
                 name,
                 ttl,
