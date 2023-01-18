@@ -40,6 +40,15 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new Zone(this, res);
+        },
+
+        /**
+         * Delete a zone
+         * @param {string} id - ID of zone to delete
+         * @returns {Promise<void>}
+         */
+        delete: async (id: string): Promise<void> => {
+            await this.request("DELETE", `zones/${id}`);
         }
     } as const;
 

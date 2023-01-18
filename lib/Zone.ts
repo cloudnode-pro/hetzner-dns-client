@@ -59,4 +59,12 @@ export default class Zone extends ClientObject<ZoneModel> {
     public constructor(client: HetznerDnsClient, data: ZoneModel) {
         super(client, data);
     }
+
+    /**
+     * Delete this zone
+     * @returns {Promise<void>}
+     */
+    public async delete(): Promise<void> {
+        await this.client.zones.delete(this.id);
+    }
 }
