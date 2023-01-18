@@ -7,6 +7,8 @@ import ErrorModel from "./models/ErrorModel.js";
 import ApiError from "./errors/ApiError.js";
 import Zones from "./Zones.js";
 import PaginatedZones from "./models/PaginatedZones";
+import ZoneValidationPretty from "./ZoneValidationPretty.js";
+import ZoneValidation from "./models/ZoneValidation";
 
 /**
  * Hetzner DNS API client for Node.js
@@ -137,6 +139,20 @@ class HetznerDnsClient {
         exportZone: async (id: string): Promise<string> => {
             const response: ApiResponse<any> = await this.request("GET", `zones/${id}/export`);
             return response.body;
+        },
+
+        /**
+         * Validate Zone file plain
+         * @param {string | Uint8Array | Buffer | readonly number[]} file - Zone file contents to validate
+         * @returns {Promise<ZoneValidation>}
+         * @throws {ApiError}
+         */
+        validateZone: async (file: string | Uint8Array | Buffer | readonly number[]): Promise<ZoneValidationPretty> => {
+            const data = Buffer.from(file);
+            const response: ApiResponse<ZoneValidation> = await this.request("POST", "zones/file/validate", "text/plain", data);
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new ZoneValidationPretty(this, res);
         }
     } as const;
 
