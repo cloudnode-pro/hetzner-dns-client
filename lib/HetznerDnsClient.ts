@@ -9,7 +9,7 @@ import ClientParseError from "./models/Errors/ClientParseError.js";
  * @class
  */
 class HetznerDnsClient {
-    private readonly token: string;
+    readonly #token: string;
     private readonly baseUrl: URL;
 
     /**
@@ -19,7 +19,7 @@ class HetznerDnsClient {
      * @public
      */
     public constructor(token: string, baseUrl?: URL) {
-        this.token = token;
+        this.#token = token;
         this.baseUrl = baseUrl ?? new URL("https://dns.hetzner.com/api/v1/");
     }
 
@@ -75,7 +75,7 @@ class HetznerDnsClient {
             method,
             headers: {
                 "Content-Type": contentType,
-                "Auth-API-Token": this.token,
+                "Auth-API-Token": this.#token,
             },
             follow: 0
         };
