@@ -59,6 +59,23 @@ class HetznerDnsClient {
         },
 
         /**
+         * Update Zone
+         * @param {string} id - ID of zone to update
+         * @param {string} name - New name of the zone (see {@link {Zone#name}})
+         * @param {number} [ttl] - New TTL of the zone (see {@link {Zone#ttl}})
+         * @returns {Promise<Zone>}
+         */
+        update: async (id: string, name: string, ttl?: number): Promise<Zone> => {
+            const response: ApiResponse<ZoneModel> = await this.request("PUT", `zones/${id}`, "application/json", {
+                name,
+                ttl,
+            });
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new Zone(this, res);
+        },
+
+        /**
          * Delete Zone
          * @param {string} id - ID of zone to delete
          * @returns {Promise<void>}
