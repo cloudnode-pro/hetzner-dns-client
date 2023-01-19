@@ -1,7 +1,7 @@
 import ZoneValidation from "./models/ZoneValidation";
 import ClientObject from "./ClientObject.js";
 import HetznerDnsClient from "./HetznerDnsClient.js";
-import Record from "./Record.js";
+import DnsRecord from "./DnsRecord.js";
 
 /**
  * Hetzner DNS Zone Validation
@@ -18,9 +18,9 @@ export default class ZoneValidationPretty extends ClientObject<ZoneValidation> {
 
     /**
      * Valid records
-     * @type {Record[]}
+     * @type {DnsRecord[]}
      */
-    public readonly validRecords = this._data.valid_records.map((record) => new Record(this.client, record));
+    public readonly validRecords = this._data.valid_records.map((record) => new DnsRecord(this.client, record));
 
     /**
      * Create a new zone validation object

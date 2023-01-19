@@ -8,7 +8,7 @@ import Zone from "./Zone";
  * @class
  * @extends {ClientObject<RecordModel>}
  */
-class Record extends ClientObject<RecordModel> {
+class DnsRecord extends ClientObject<RecordModel> {
     /**
      * Record ID
      * @type {string}
@@ -28,7 +28,7 @@ class Record extends ClientObject<RecordModel> {
      * @type {Record.Type}
      * @readonly
      */
-    public readonly type = Record.getTypeFromString(this._data.type);
+    public readonly type = DnsRecord.getTypeFromString(this._data.type);
 
     /**
      * Record value
@@ -90,13 +90,13 @@ class Record extends ClientObject<RecordModel> {
      * @returns {Type | null} - Record type enum value or null if not found
      * @static
      */
-    public static getTypeFromString(type: string): Record.Type | null {
-        if (type in Record.Type) return Record.Type[type as keyof typeof Record.Type];
+    public static getTypeFromString(type: string): DnsRecord.Type | null {
+        if (type in DnsRecord.Type) return DnsRecord.Type[type as keyof typeof DnsRecord.Type];
         return null;
     }
 }
 
-namespace Record {
+namespace DnsRecord {
     /**
      * Type of record
      * @enum
@@ -120,4 +120,4 @@ namespace Record {
     }
 }
 
-export default Record;
+export default DnsRecord;
