@@ -180,13 +180,13 @@ class HetznerDnsClient {
     public records = {
         /**
          * Get All Records
-         * @param {string} zoneId - ID of zone to get the records of
+         * @param {string} [zoneId] - ID of zone to get the records of
          * @returns {Promise<DnsRecord[]>}
          * @throws {ApiError}
          * @throws {ClientParseError}
          */
-        getAll: async (zoneId: string): Promise<DnsRecord[]> => {
-            const response: ApiResponse<Records> = await this.request("GET", "records", void 0, void 0, {zone_id: zoneId});
+        getAll: async (zoneId?: string): Promise<DnsRecord[]> => {
+            const response: ApiResponse<Records> = await this.request("GET", "records", void 0, void 0, zoneId ? {zone_id: zoneId} : void 0);
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return res.records.map(r => new DnsRecord(this, r));
