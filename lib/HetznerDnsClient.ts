@@ -12,6 +12,8 @@ import ZoneValidation from "./models/ZoneValidation";
 import Records from "./models/Records";
 import DnsRecord from "./DnsRecord.js";
 import RecordModelWrapped from "./models/RecordModelWrapped";
+import BulkCreateRecordsPretty from "./BulkCreateRecordsPretty.js";
+import BulkCreateRecords from "./models/BulkCreateRecords";
 
 /**
  * Hetzner DNS API client for Node.js
@@ -256,6 +258,32 @@ class HetznerDnsClient {
          */
         delete: async (id: string): Promise<void> => {
             await this.request("DELETE", `records/${id}`);
+        },
+
+        /**
+         * Bulk Create Records
+         * @param {Object[]} records - Array of records to create
+         * @param {string} records[].name - See {@link DnsRecord#name}
+         * @param {number} [records[].ttl] - See {@link DnsRecord#ttl}
+         * @param {DnsRecord.Type} records[].type - See {@link DnsRecord#type}
+         * @param {string} records[].value - See {@link DnsRecord#value}
+         * @param {string} records[].zoneId - ID of zone to create the record in
+         * @returns {Promise<BulkCreateRecordsPretty>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        bulkCreate: async (records: {name: string, ttl?: number, type: DnsRecord.Type, value: string, zoneId: string}[]): Promise<BulkCreateRecordsPretty> => {
+            const r = records.map(r => ({
+                name: r.name,
+                ttl: r.ttl,
+                type: r.type.toString(),
+                value: r.value,
+                zone_id: r.zoneId,
+            }));
+            const response: ApiResponse<BulkCreateRecords> = await this.request("POST", "records/bulk", "application/json", {records: r});
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new BulkCreateRecordsPretty(this, res);
         }
     } as const;
 
