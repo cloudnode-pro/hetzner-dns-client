@@ -59,4 +59,16 @@ export default class PrimaryServer extends ClientObject<PrimaryServerModel> {
     public async getZone(): Promise<Zone> {
         return await this.client.zones.get(this.zoneId);
     }
+
+    /**
+     * Update primary server
+     * @param {string} [address] - New server address (see {@link PrimaryServer#address})
+     * @param {number} [port] - New server port (see {@link PrimaryServer#port})
+     * @returns {Promise<PrimaryServer>} - The updated primary server object. **Note**: Avoid using the old object after updating it to avoid inconsistencies. You should use the new primary server object returned by this method.
+     * @throws {ApiError}
+     * @throws {ClientParseError}
+     */
+    public async update(address?: string, port?: number): Promise<PrimaryServer> {
+        return await this.client.primaryServers.update(this.id, this.zoneId, address ?? this.address, port ?? this.port);
+    }
 }

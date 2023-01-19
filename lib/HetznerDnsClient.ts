@@ -371,6 +371,27 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new PrimaryServer(this, res.primary_server);
+        },
+
+        /**
+         * Update Primary Server
+         * @param {string} id - ID of primary server to update
+         * @param {string} zoneId - ID of zone the primary server is associated with. **Note**: Changing the zone of a primary server is not possible.
+         * @param {string} address - See {@link PrimaryServer#address}
+         * @param {number} port - See {@link PrimaryServer#port}
+         * @returns {Promise<PrimaryServer>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        update: async (id: string, zoneId: string, address: string, port: number): Promise<PrimaryServer> => {
+            const response: ApiResponse<PrimaryServerModelWrapped> = await this.request("PUT", `primary_servers/${id}`, "application/json", {
+                zone_id: zoneId,
+                address,
+                port,
+            });
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new PrimaryServer(this, res.primary_server);
         }
     } as const;
 
