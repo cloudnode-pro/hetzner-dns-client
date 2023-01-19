@@ -62,8 +62,8 @@ class HetznerDnsClient {
 
         /**
          * Create Zone
-         * @param {string} name - See {@link {Zone#name}}
-         * @param {number} [ttl] - See {@link {Zone#ttl}}
+         * @param {string} name - See {@link Zone#name}
+         * @param {number} [ttl] - See {@link Zone#ttl}
          * @returns {Promise<Zone>}
          * @throws {ApiError}
          * @throws {ClientParseError}
@@ -96,7 +96,7 @@ class HetznerDnsClient {
          * Update Zone
          * @param {string} id - ID of zone to update
          * @param {string} name - The current name of the zone. Changing zone name is not possible.
-         * @param {number} [ttl] - New TTL of the zone (see {@link {Zone#ttl}})
+         * @param {number} [ttl] - New TTL of the zone (see {@link Zone#ttl})
          * @returns {Promise<Zone>}
          * @throws {ApiError}
          * @throws {ClientParseError}
