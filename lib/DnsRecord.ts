@@ -28,7 +28,7 @@ class DnsRecord extends ClientObject<RecordModel> {
      * @type {Record.Type}
      * @readonly
      */
-    public readonly type = DnsRecord.getTypeFromString(this._data.type);
+    public readonly type = DnsRecord.getTypeFromString(this._data.type)!;
 
     /**
      * Record value
