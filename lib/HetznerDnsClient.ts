@@ -221,6 +221,31 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new DnsRecord(this, res.record);
+        },
+
+        /**
+         * Update Record
+         * @param {string} id - ID of record to updated
+         * @param {string} zoneId - ID of zone the record is associated with. **Note**: Changing the zone of a record is not possible.
+         * @param {DnsRecord.Type} type - See {@link DnsRecord#type}. **Note**: Changing the type of a record is not possible.
+         * @param {string} name - See {@link DnsRecord#name}
+         * @param {string} value - See {@link DnsRecord#value}
+         * @param {number} [ttl] - See {@link DnsRecord#ttl}
+         * @returns {Promise<DnsRecord>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        update: async (id: string, zoneId: string, type: DnsRecord.Type, name: string, value: string, ttl?: number): Promise<DnsRecord> => {
+            const response: ApiResponse<RecordModelWrapped> = await this.request("PUT", `records/${id}`, "application/json", {
+                zone_id: zoneId,
+                type: type.toString(),
+                name,
+                value,
+                ttl,
+            });
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new DnsRecord(this, res.record);
         }
     } as const;
 

@@ -87,6 +87,22 @@ class DnsRecord extends ClientObject<RecordModel> {
     }
 
     /**
+     * Update the record
+     * @param {Object} options - Update options
+     * @param {string} [options.name] - Record name
+     * @param {string} [options.value] - Record value
+     * @param {number} [options.ttl] - Record TTL (time to live) in seconds
+     * @returns {Promise<DnsRecord>}
+     * @throws {ApiError}
+     * @throws {ClientParseError}
+     */
+    public async update(options: {name?: string, value?: string, ttl?: number}): Promise<DnsRecord> {
+        options.name ??= this.name;
+        options.value ??= this.value;
+        return await this.client.records.update(this.id, this.zoneId, this.type, options.name, options.value, options.ttl);
+    }
+
+    /**
      * Get the record type from string
      * @param {string} type - Record type string
      * @returns {Type | null} - Record type enum value or null if not found
