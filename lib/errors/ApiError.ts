@@ -89,6 +89,7 @@ export default class ApiError extends Error {
         "no primary server found": "No primary servers were found",
         "422 Unprocessable Entity: invalid is a private IP address": "The provided primary server IP address is private or invalid",
         "422 Unprocessable Entity: taken ": "Some of the provided parameters conflict with an existing resource",
+        "primary server not found": "The primary server was not found",
     };
 
     /**
