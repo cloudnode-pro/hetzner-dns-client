@@ -84,7 +84,7 @@ export default class ApiError extends Error {
         "invalid TLSA record": "Invalid TLSA record name or value provided",
         "invalid DS record": "Invalid DS record name or value provided",
         "invalid CAA record": "Invalid CAA record name or value provided",
-        "record type not allowed": "You cannot create DNS records of this type",
+        "record type not allowed": "You cannot create/modify/delete records of this type",
         "record not found": "Record not found",
         "no primary server found": "No primary servers were found",
         "422 Unprocessable Entity: invalid is a private IP address": "The provided primary server IP address is private or invalid",
