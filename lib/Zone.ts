@@ -110,4 +110,18 @@ export default class Zone extends ClientObject<ZoneModel> {
     public async getRecords(): Promise<DnsRecord[]> {
         return await this.client.records.getAll(this.id);
     }
+
+    /**
+     * Create a new record in this zone
+     * @param {string} name - See {@link DnsRecord#name}
+     * @param {DnsRecord.Type} type - See {@link DnsRecord#type}
+     * @param {string} value - See {@link DnsRecord#value}
+     * @param {number} [ttl] - See {@link DnsRecord#ttl}
+     * @returns {Promise<DnsRecord>} - The created record object
+     * @throws {ApiError}
+     * @throws {ClientParseError}
+     */
+    public async createRecord(name: string, type: DnsRecord.Type, value: string, ttl?: number): Promise<DnsRecord> {
+        return await this.client.records.create(this.id, name, type, value, ttl);
+    }
 }

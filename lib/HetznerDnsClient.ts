@@ -11,6 +11,7 @@ import ZoneValidationPretty from "./ZoneValidationPretty.js";
 import ZoneValidation from "./models/ZoneValidation";
 import Records from "./models/Records";
 import DnsRecord from "./DnsRecord.js";
+import RecordModelWrapped from "./models/RecordModelWrapped";
 
 /**
  * Hetzner DNS API client for Node.js
@@ -182,6 +183,30 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return res.records.map(r => new DnsRecord(this, r));
+        },
+
+        /**
+         * Create Record
+         * @param {string} zoneId - ID of zone to create the record in
+         * @param {string} name - See {@link DnsRecord#name}
+         * @param {DnsRecord.Type} type - See {@link DnsRecord#type}
+         * @param {string} value - See {@link DnsRecord#value}
+         * @param {number} [ttl] - See {@link DnsRecord#ttl}
+         * @returns {Promise<DnsRecord>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        create: async (zoneId: string, name: string, type: DnsRecord.Type, value: string, ttl?: number): Promise<DnsRecord> => {
+            const response: ApiResponse<RecordModelWrapped> = await this.request("POST", "records", "application/json", {
+                zone_id: zoneId,
+                name,
+                type: type.toString(),
+                value,
+                ttl,
+            });
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new DnsRecord(this, res.record);
         }
     } as const;
 
