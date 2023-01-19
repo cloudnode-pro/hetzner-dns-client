@@ -114,6 +114,8 @@ namespace DnsRecord {
         AAAA = "AAAA",
         /**
          * PTR records are used to map an IP address to a hostname. They are commonly used for reverse DNS lookups.
+         *
+         * **Note**: Creating PTR records is not supported by the API.
          */
         PTR = "PTR",
         /**
@@ -142,6 +144,8 @@ namespace DnsRecord {
         TXT = "TXT",
         /**
          * Specifies authoritative information about a DNS zone, including the primary name server, the email of the domain administrator, the domain serial number, and several timers relating to refreshing the zone.
+         *
+         * **Note**: Creating SOA records is not supported by the API.
          */
         SOA = "SOA",
         /**
@@ -152,6 +156,9 @@ namespace DnsRecord {
          * SRV records are used to specify server locations and their specified services.
          */
         SRV = "SRV",
+        /**
+         * **Note**: Creating DANE records is not supported by the API.
+         */
         DANE = "DANE",
         /**
          * A record for DANE. RFC 6698 defines "The TLSA DNS resource record is used to associate a TLS server certificate or public key with the domain name where the record is found, thus forming a 'TLSA certificate association'".
