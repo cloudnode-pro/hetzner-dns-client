@@ -104,21 +104,67 @@ namespace DnsRecord {
      * @enum {string}
      */
     export enum Type {
+        /**
+         * A records are the most commonly used type of record. They simply point your hostname to an IPv4 address.
+         */
         A = "A",
+        /**
+         * AAAA (quad-A) records are similar to A records, but they point your hostname to an IPv6 address instead of an IPv4 address.
+         */
         AAAA = "AAAA",
+        /**
+         * PTR records are used to map an IP address to a hostname. They are commonly used for reverse DNS lookups.
+         */
         PTR = "PTR",
+        /**
+         * NS records determine which name servers are authoritative to the domain (or subdomain). They are typically used together with A records. Several NS records may be associated with a single zone at once.
+         */
         NS = "NS",
+        /**
+         * MX records handle the exchange of e-mails, and are used specifically for mail servers.
+         *
+         * **Attention**: In the "Value" field, remember to put a dot . at the end of the hostname reference if you need one.
+         */
         MX = "MX",
+        /**
+         * CNAME records point your hostname to another domain. IP addresses are not accepted, as these will be handled by the records of the target domain. CNAME records cannot be added to a zone if there are any other existing records with the same name, regardless of type.
+         *
+         * **Attention**: In the "Value" field, remember to put a dot . at the end of the hostname reference if you need one.
+         */
         CNAME = "CNAME",
+        /**
+         * Information about the responsible person(s) for the domain. Usually an email address with the @ replaced by a .
+         */
         RP = "RP",
+        /**
+         * TXT records are plain text records that contain general information about your domain. A TXT record may often follow a certain specification (e.g. DKIM, DMARC) depending on its purpose.
+         */
         TXT = "TXT",
+        /**
+         * Specifies authoritative information about a DNS zone, including the primary name server, the email of the domain administrator, the domain serial number, and several timers relating to refreshing the zone.
+         */
         SOA = "SOA",
+        /**
+         * Record intended to provide information about host CPU type and operating system. It was intended to allow protocols to optimize processing when communicating with similar peers.
+         */
         HINFO = "HINFO",
+        /**
+         * SRV records are used to specify server locations and their specified services.
+         */
         SRV = "SRV",
         DANE = "DANE",
+        /**
+         * A record for DANE. RFC 6698 defines "The TLSA DNS resource record is used to associate a TLS server certificate or public key with the domain name where the record is found, thus forming a 'TLSA certificate association'".
+         */
         TLSA = "TLSA",
+        /**
+         * The record used to identify the DNSSEC signing key of a delegated zone.
+         */
         DS = "DS",
-        CA = "CA"
+        /**
+         * CAA Records allow you to specify which Certification Authorities can issue a certificate for your zone.
+         */
+        CAA = "CAA"
     }
 }
 
