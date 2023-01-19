@@ -9,6 +9,8 @@ import Zones from "./Zones.js";
 import PaginatedZones from "./models/PaginatedZones";
 import ZoneValidationPretty from "./ZoneValidationPretty.js";
 import ZoneValidation from "./models/ZoneValidation";
+import Records from "./models/Records";
+import DnsRecord from "./DnsRecord.js";
 
 /**
  * Hetzner DNS API client for Node.js
@@ -167,7 +169,21 @@ class HetznerDnsClient {
     /**
      * ## Records
      */
-    public records = {} as const;
+    public records = {
+        /**
+         * Get All Records
+         * @param {string} zoneId - ID of zone to get the records of
+         * @returns {Promise<DnsRecord[]>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        getAll: async (zoneId: string): Promise<DnsRecord[]> => {
+            const response: ApiResponse<Records> = await this.request("GET", "records", void 0, void 0, {zone_id: zoneId});
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return res.records.map(r => new DnsRecord(this, r));
+        }
+    } as const;
 
     /**
      * Send a request to the Hetzner DNS API

@@ -1,6 +1,7 @@
 import ClientObject from "./ClientObject.js";
 import HetznerDnsClient from "./HetznerDnsClient.js";
 import ZoneModel from "./models/ZoneModel";
+import DnsRecord from "./DnsRecord.js";
 
 /**
  * Hetzner DNS Zone
@@ -98,5 +99,15 @@ export default class Zone extends ClientObject<ZoneModel> {
      */
     public async delete(): Promise<void> {
         await this.client.zones.delete(this.id);
+    }
+
+    /**
+     * Get all records in this zone
+     * @returns {Promise<DnsRecord[]>}
+     * @throws {ApiError}
+     * @throws {ClientParseError}
+     */
+    public async getRecords(): Promise<DnsRecord[]> {
+        return await this.client.records.getAll(this.id);
     }
 }
