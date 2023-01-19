@@ -48,6 +48,16 @@ export default class Zone extends ClientObject<ZoneModel> {
     public readonly ttl = this._data.ttl;
 
     /**
+     * Whether this is a secondary zone
+     * Secondary zones have primary servers (see {@link Zone#getPrimaryServers}) instead of records (see {@link Zone#getRecords})
+     * @type {boolean}
+     * @readonly
+     */
+    public get secondary(): boolean {
+        return this._data.is_secondary_dns;
+    }
+
+    /**
      * The number of records in this zone
      * @type {number}
      * @readonly

@@ -116,4 +116,10 @@ export default interface ZoneModel {
          */
         token: string;
     }
+
+    /**
+     * Whether this is a secondary zone
+     * @type {boolean}
+     */
+    is_secondary_dns: boolean;
 }
