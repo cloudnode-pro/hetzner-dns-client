@@ -16,6 +16,8 @@ import BulkCreateRecordsPretty from "./BulkCreateRecordsPretty.js";
 import BulkCreateRecords from "./models/BulkCreateRecords";
 import BulkUpdateRecordsPretty from "./BulkUpdateRecordsPretty.js";
 import BulkUpdateRecords from "./models/BulkUpdateRecords";
+import PrimaryServer from "./PrimaryServer.js";
+import PrimaryServers from "./models/PrimaryServers";
 
 /**
  * Hetzner DNS API client for Node.js
@@ -316,6 +318,26 @@ class HetznerDnsClient {
             return new BulkUpdateRecordsPretty(this, res);
         }
     } as const;
+
+    /**
+     * ## Primary Servers
+     * Primary servers can only be added to a zone, if no records were added to it, yet. By adding a primary server to a newly created zone, it automatically becomes a secondary zone.
+     */
+    public primaryServers = {
+        /**
+         * Get All Primary Servers
+         * @param {string} [zoneId] - ID of zone to get primary servers for
+         * @returns {Promise<PrimaryServer[]>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        getAll: async (zoneId?: string): Promise<PrimaryServer[]> => {
+            const response: ApiResponse<PrimaryServers> = await this.request("GET", "primary_servers", void 0, void 0, zoneId ? {zone_id: zoneId} : void 0);
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return res.primary_servers.map(r => new PrimaryServer(this, r));
+        }
+    }
 
     /**
      * Send a request to the Hetzner DNS API
