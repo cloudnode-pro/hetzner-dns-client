@@ -246,6 +246,16 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new DnsRecord(this, res.record);
+        },
+
+        /**
+         * Delete Record
+         * @param {string} id - ID of record to delete
+         * @returns {Promise<void>}
+         * @throws {ApiError}
+         */
+        delete: async (id: string): Promise<void> => {
+            await this.request("DELETE", `records/${id}`);
         }
     } as const;
 

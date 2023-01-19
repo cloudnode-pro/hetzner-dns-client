@@ -103,6 +103,15 @@ class DnsRecord extends ClientObject<RecordModel> {
     }
 
     /**
+     * Delete this record
+     * @returns {Promise<void>}
+     * @throws {ApiError}
+     */
+    public async delete(): Promise<void> {
+        await this.client.records.delete(this.id);
+    }
+
+    /**
      * Get the record type from string
      * @param {string} type - Record type string
      * @returns {Type | null} - Record type enum value or null if not found
