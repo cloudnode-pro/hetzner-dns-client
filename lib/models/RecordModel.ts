@@ -1,8 +1,11 @@
+import BaseRecordModel from "./BaseRecordModel";
+
 /**
  * Record model
  * @interface
+ * @extends {BaseRecordModel}
  */
-export default interface RecordModel {
+export default interface RecordModel extends BaseRecordModel {
     /**
      * Time record was created (ISO 8601)
      * @type {string}
@@ -20,34 +23,4 @@ export default interface RecordModel {
      * @type {string}
      */
     modified: string;
-
-    /**
-     * Name of record
-     * @type {string}
-     */
-    name: string;
-
-    /**
-     * TTL of record
-     * @type {number}
-     */
-    ttl?: number;
-
-    /**
-     * Type of record (string corresponding to enum value from {@link RecordModel.Type})
-     * @type {string}
-     */
-    type: string;
-
-    /**
-     * Value of record
-     * @type {string}
-     */
-    value: string;
-
-    /**
-     * ID of zone this record is associated with
-     * @type {string}
-     */
-    zone_id: string;
 }
