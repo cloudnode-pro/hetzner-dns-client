@@ -2,6 +2,7 @@ import ClientObject from "./ClientObject.js";
 import HetznerDnsClient from "./HetznerDnsClient.js";
 import ZoneModel from "./models/ZoneModel";
 import DnsRecord from "./DnsRecord.js";
+import PrimaryServer from "./PrimaryServer.js";
 
 /**
  * Hetzner DNS Zone
@@ -109,6 +110,16 @@ export default class Zone extends ClientObject<ZoneModel> {
      */
     public async getRecords(): Promise<DnsRecord[]> {
         return await this.client.records.getAll(this.id);
+    }
+
+    /**
+     * Get all primary servers for this zone
+     * @returns {Promise<PrimaryServer[]>}
+     * @throws {ApiError}
+     * @throws {ClientParseError}
+     */
+    public async getPrimaryServers(): Promise<PrimaryServer[]> {
+        return await this.client.primaryServers.getAll(this.id);
     }
 
     /**
