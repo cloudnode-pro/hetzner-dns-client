@@ -40,12 +40,12 @@ export default class PrimaryServer extends ClientObject<PrimaryServerModel> {
      * @type {Date}
      * @readonly
      */
-    public readonly created = new Date(this._data.created);
+    public readonly created = new Date(this._data.created_at);
 
     /**
      * Time primary server was last updated
      * @type {Date}
      * @readonly
      */
-    public readonly modified = new Date(this._data.modified);
+    public readonly modified = new Date(this._data.updated_at);
 }

@@ -87,6 +87,8 @@ export default class ApiError extends Error {
         "record type not allowed": "You cannot create DNS records of this type",
         "record not found": "Record not found",
         "no primary server found": "No primary servers were found",
+        "422 Unprocessable Entity: invalid is a private IP address": "The provided primary server IP address is private or invalid",
+        "422 Unprocessable Entity: taken ": "Some of the provided parameters conflict with an existing resource",
     };
 
     /**

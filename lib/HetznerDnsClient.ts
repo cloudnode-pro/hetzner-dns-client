@@ -18,6 +18,7 @@ import BulkUpdateRecordsPretty from "./BulkUpdateRecordsPretty.js";
 import BulkUpdateRecords from "./models/BulkUpdateRecords";
 import PrimaryServer from "./PrimaryServer.js";
 import PrimaryServers from "./models/PrimaryServers";
+import PrimaryServerModelWrapped from "./models/PrimaryServerModelWrapped";
 
 /**
  * Hetzner DNS API client for Node.js
@@ -336,8 +337,28 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return res.primary_servers.map(r => new PrimaryServer(this, r));
+        },
+
+        /**
+         * Create Primary Server
+         * @param {string} zoneId - ID of zone to create the primary server in
+         * @param {string} address - See {@link PrimaryServer#address}
+         * @param {number} port - See {@link PrimaryServer#port}
+         * @returns {Promise<PrimaryServer>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        create: async (zoneId: string, address: string, port: number): Promise<PrimaryServer> => {
+            const response: ApiResponse<PrimaryServerModelWrapped> = await this.request("POST", "primary_servers", "application/json", {
+                zone_id: zoneId,
+                address,
+                port,
+            });
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new PrimaryServer(this, res.primary_server);
         }
-    }
+    } as const;
 
     /**
      * Send a request to the Hetzner DNS API

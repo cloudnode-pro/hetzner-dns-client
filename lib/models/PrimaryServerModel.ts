@@ -31,11 +31,11 @@ export default interface PrimaryServerModel {
      * Time primary server was created (ISO 8601)
      * @type {string}
      */
-    created: string;
+    created_at: string;
 
     /**
      * Time primary server was last updated (ISO 8601)
      * @type {string}
      */
-    modified: string;
+    updated_at: string;
 }
