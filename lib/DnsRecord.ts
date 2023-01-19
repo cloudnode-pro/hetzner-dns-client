@@ -99,24 +99,24 @@ class DnsRecord extends ClientObject<RecordModel> {
 namespace DnsRecord {
     /**
      * Type of record
-     * @enum
+     * @enum {string}
      */
     export enum Type {
-        A,
-        AAAA,
-        PTR,
-        NS,
-        MX,
-        CNAME,
-        RP,
-        TXT,
-        SOA,
-        HINFO,
-        SRV,
-        DANE,
-        TLSA,
-        DS,
-        CAA
+        A = "A",
+        AAAA = "AAAA",
+        PTR = "PTR",
+        NS = "NS",
+        MX = "MX",
+        CNAME = "CNAME",
+        RP = "RP",
+        TXT = "TXT",
+        SOA = "SOA",
+        HINFO = "HINFO",
+        SRV = "SRV",
+        DANE = "DANE",
+        TLSA = "TLSA",
+        DS = "DS",
+        CA = "CA"
     }
 }
 
