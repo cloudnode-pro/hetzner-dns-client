@@ -39,10 +39,12 @@ class DnsRecord extends ClientObject<RecordModel> {
 
     /**
      * Record TTL (time to live) in seconds
-     * @type {number}
+     *
+     * Null if not set (i.e. depends on zone default)
+     * @type {number | null}
      * @readonly
      */
-    public readonly ttl = this._data.ttl;
+    public readonly ttl = this._data.ttl ?? null;
 
     /**
      * Time record was created

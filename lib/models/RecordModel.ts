@@ -31,7 +31,7 @@ export default interface RecordModel {
      * TTL of record
      * @type {number}
      */
-    ttl: number;
+    ttl?: number;
 
     /**
      * Type of record (string corresponding to enum value from {@link RecordModel.Type})
