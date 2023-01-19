@@ -357,6 +357,20 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new PrimaryServer(this, res.primary_server);
+        },
+
+        /**
+         * Get Primary Server
+         * @param {string} id - ID of primary server to get
+         * @returns {Promise<PrimaryServer>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        get: async (id: string): Promise<PrimaryServer> => {
+            const response: ApiResponse<PrimaryServerModelWrapped> = await this.request("GET", `primary_servers/${id}`);
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new PrimaryServer(this, res.primary_server);
         }
     } as const;
 
