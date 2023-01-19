@@ -71,4 +71,14 @@ export default class PrimaryServer extends ClientObject<PrimaryServerModel> {
     public async update(address?: string, port?: number): Promise<PrimaryServer> {
         return await this.client.primaryServers.update(this.id, this.zoneId, address ?? this.address, port ?? this.port);
     }
+
+    /**
+     * Delete this primary server
+     * @returns {Promise<void>}
+     * @throws {ApiError}
+     * @throws {ClientParseError}
+     */
+    public async delete(): Promise<void> {
+        await this.client.primaryServers.delete(this.id);
+    }
 }

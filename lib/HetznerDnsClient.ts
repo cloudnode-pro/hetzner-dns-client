@@ -392,6 +392,17 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new PrimaryServer(this, res.primary_server);
+        },
+
+        /**
+         * Delete Primary Server
+         * @param {string} id - ID of primary server to delete
+         * @returns {Promise<void>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        delete: async (id: string): Promise<void> => {
+            await this.request("DELETE", `primary_servers/${id}`);
         }
     } as const;
 
