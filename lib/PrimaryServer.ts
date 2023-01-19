@@ -1,5 +1,6 @@
 import ClientObject from "./ClientObject.js";
 import PrimaryServerModel from "./models/PrimaryServerModel";
+import Zone from "./Zone.js";
 
 /**
  * Primary server
@@ -48,4 +49,14 @@ export default class PrimaryServer extends ClientObject<PrimaryServerModel> {
      * @readonly
      */
     public readonly modified = new Date(this._data.updated_at);
+
+    /**
+     * Get zone this primary server is associated with
+     * @returns {Promise<Zone>}
+     * @throws {ApiError}
+     * @throws {ClientParseError}
+     */
+    public async getZone(): Promise<Zone> {
+        return await this.client.zones.get(this.zoneId);
+    }
 }
