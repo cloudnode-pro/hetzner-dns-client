@@ -207,6 +207,20 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new DnsRecord(this, res.record);
+        },
+
+        /**
+         * Get Record
+         * @param {string} id - ID of record to get
+         * @returns {Promise<DnsRecord>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        get: async (id: string): Promise<DnsRecord> => {
+            const response: ApiResponse<RecordModelWrapped> = await this.request("GET", `records/${id}`);
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new DnsRecord(this, res.record);
         }
     } as const;
 
