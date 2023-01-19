@@ -14,6 +14,8 @@ import DnsRecord from "./DnsRecord.js";
 import RecordModelWrapped from "./models/RecordModelWrapped";
 import BulkCreateRecordsPretty from "./BulkCreateRecordsPretty.js";
 import BulkCreateRecords from "./models/BulkCreateRecords";
+import BulkUpdateRecordsPretty from "./BulkUpdateRecordsPretty.js";
+import BulkUpdateRecords from "./models/BulkUpdateRecords";
 
 /**
  * Hetzner DNS API client for Node.js
@@ -284,6 +286,34 @@ class HetznerDnsClient {
             const res = response.json;
             if (res === null) throw new ClientParseError();
             return new BulkCreateRecordsPretty(this, res);
+        },
+
+        /**
+         * Bulk Update Records
+         * @param {Object[]} records - Array of records to update
+         * @param {string} records[].id - ID of record to update
+         * @param {string} records[].name - See {@link DnsRecord#name}
+         * @param {number} [records[].ttl] - See {@link DnsRecord#ttl}
+         * @param {DnsRecord.Type} records[].type - See {@link DnsRecord#type}. **Note**: Changing the type of a record is not possible.
+         * @param {string} records[].value - See {@link DnsRecord#value}
+         * @param {string} records[].zoneId - ID of zone the record is associated with. **Note**: Changing the zone of a record is not possible.
+         * @returns {Promise<BulkUpdateRecordsPretty>}
+         * @throws {ApiError}
+         * @throws {ClientParseError}
+         */
+        bulkUpdate: async (records: {id: string, name: string, ttl?: number, type: DnsRecord.Type, value: string, zoneId: string}[]): Promise<BulkUpdateRecordsPretty> => {
+            const r = records.map(r => ({
+                id: r.id,
+                name: r.name,
+                ttl: r.ttl,
+                type: r.type.toString(),
+                value: r.value,
+                zone_id: r.zoneId,
+            }));
+            const response: ApiResponse<BulkUpdateRecords> = await this.request("PUT", "records/bulk", "application/json", {records: r});
+            const res = response.json;
+            if (res === null) throw new ClientParseError();
+            return new BulkUpdateRecordsPretty(this, res);
         }
     } as const;
 

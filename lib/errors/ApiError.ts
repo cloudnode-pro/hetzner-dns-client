@@ -85,6 +85,7 @@ export default class ApiError extends Error {
         "invalid DS record": "Invalid DS record name or value provided",
         "invalid CAA record": "Invalid CAA record name or value provided",
         "record type not allowed": "You cannot create DNS records of this type",
+        "record not found": "Record not found"
     };
 
     /**
