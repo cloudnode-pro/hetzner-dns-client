@@ -709,7 +709,7 @@ Delete this primary server
 ## Class: `ApiResponse<T extends ErrorModel>`
 API response object
 
-- Template: `T` <code>[**ErrorModel**](#class-errormodel)</code> Response data model
+- Template: `T` <code>[**ErrorModel**](#interface-errormodel)</code> Response data model
 
 <a name="apiresponseresponse"></a>
 
