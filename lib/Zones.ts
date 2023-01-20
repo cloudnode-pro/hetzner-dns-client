@@ -96,6 +96,7 @@ export default class Zones extends ClientObject<PaginatedZones> {
      * Fetch next page of zones and attach them to this collection
      * @returns {Promise<Zones | null>} - The newly fetched page or null if there are no more pages
      * @throws {ApiError}
+     * @throws {ClientParseError}
      */
     public async fetchNextPage(): Promise<Zones | null> {
         if (this.isLastPage) return null;
@@ -112,6 +113,7 @@ export default class Zones extends ClientObject<PaginatedZones> {
      * > **Note**: This method will make multiple API calls and may take a while, depending on the number of zones.
      * @returns {Promise<void>}
      * @throws {ApiError}
+     * @throws {ClientParseError}
      */
     public async fetchAllPages(): Promise<void> {
         while (!this.isLastPage) {
