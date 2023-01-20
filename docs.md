@@ -346,7 +346,7 @@ Update Primary Server
 - `address` <code>[**string**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)</code> See <code>[primaryServer.address](#primaryserveraddress)</code>
 - `port` <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)</code> See <code>[primaryServer.port](#primaryserverport)</code>
 - Returns: <code>[**Promise**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[**PrimaryServer**](#class-primaryserver)></code>
-- Throws: <code>[**ApiError**](#class-apierror)</code>, <code>[**ClientParseError**](#class-clientparseeerror)</code>
+- Throws: <code>[**ApiError**](#class-apierror)</code>, <code>[**ClientParseError**](#class-clientparseerror)</code>
 
 <a name="hetznerdnsclientprimaryserversdeleteid"></a>
 
