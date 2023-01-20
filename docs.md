@@ -91,6 +91,9 @@
 - [Class: `BulkUpdateRecordsPretty`](#class-bulkupdaterecordspretty)
   - [`bulkUpdateRecordsPretty.failedRecords`](#bulkupdaterecordsprettyfailedrecords)
   - [`bulkUpdateRecordsPretty.records`](#bulkupdaterecordsprettyrecords)
+- [Class: `ZoneValidationPretty`](#class-zonevalidationpretty)
+  - [`zoneValidationPretty.parsedRecords`](#zonevalidationprettyparsedrecords)
+  - [`zoneValidationPretty.validRecords`](#zonevalidationprettyvalidrecords)
 - [Class: `ApiError`](#class-apierror)
   - [Class property: `ApiError.messages`](#class-property-apierrormessages)
   - [Class property: `ApiError.specialMessages`](#class-property-apierrorspecialmessages)
@@ -109,6 +112,7 @@
 - [Interface: `PrimaryServerModel`](#interface-primaryservermodel)
 - [Interface: `PaginatedZones`](#interface-paginatedzones)
 - [Interface: `PaginatedData`](#interface-paginateddata)
+- [Interface: `ZoneValidation`](#interface-zonevalidation)
 </details>
 
 <a name="class-hetznerdnsclient"></a>
@@ -893,6 +897,29 @@ Records that were updated
 - Type: <code>[**DnsRecord**](#class-dnsrecord)[]</code>
 - Read only
 
+<a name="class-zonevalidationpretty"></a>
+
+## Class: `ZoneValidationPretty`
+Hetzner DNS Zone Validation
+
+- Extends: <code>[**ClientObject**](#class-clientobjectt)&lt;[**ZoneValidation**](#interface-zonevalidation)></code>
+
+<a name="zonevalidationprettyparsedrecords"></a>
+
+### `zoneValidationPretty.parsedRecords`
+Number of parsed records
+
+- Type: <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)</code>
+- Read only
+
+<a name="zonevalidationprettyvalidrecords"></a>
+
+### `zoneValidationPretty.validRecords`
+Valid records
+
+- Type: <code>[**DnsRecord**](#class-dnsrecord)[]</code>
+- Read only
+
 <a name="class-apierror"></a>
 
 ## Class: `ApiError`
@@ -1073,3 +1100,12 @@ Paginated API response
     - `per_page` <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)</code> The number of items shown per page
     - `last_page` <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)</code> The number of the last page
     - `total_entries` <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)</code> The total number of items
+
+<a name="interface-zonevalidation"></a>
+
+## Interface: `ZoneValidation`
+Zone file validation response
+
+- Extends: <code>[**ErrorModel**](#interface-errormodel)</code>
+- `parsed_records` <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)</code> Number of parsed records
+- `valid_records` <code>[**RecordModel**](#interface-recordmodel)[]</code> Valid records
