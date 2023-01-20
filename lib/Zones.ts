@@ -109,7 +109,7 @@ export default class Zones extends ClientObject<PaginatedZones> {
 
     /**
      * Fetch all pages after the current page and attach them to this collection.
-     * **Note**: This method will make multiple API calls and may take a while, depending on the number of zones.
+     * > **Note**: This method will make multiple API calls and may take a while, depending on the number of zones.
      * @returns {Promise<void>}
      * @throws {ApiError}
      */
