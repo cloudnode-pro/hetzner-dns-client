@@ -1,5 +1,4 @@
 import ClientObject from "./ClientObject.js";
-import HetznerDnsClient from "./HetznerDnsClient.js";
 import ZoneModel from "./models/ZoneModel";
 import DnsRecord from "./DnsRecord.js";
 import PrimaryServer from "./PrimaryServer.js";
@@ -63,14 +62,6 @@ export default class Zone extends ClientObject<ZoneModel> {
      * @readonly
      */
     public readonly recordsCount = this._data.records_count;
-    /**
-     * Create a new zone object
-     * @param {HetznerDnsClient} client - API client instance
-     * @param {ZoneModel} data - Raw zone data
-     */
-    public constructor(client: HetznerDnsClient, data: ZoneModel) {
-        super(client, data);
-    }
 
     /**
      * Change zone default TTL (time to live)

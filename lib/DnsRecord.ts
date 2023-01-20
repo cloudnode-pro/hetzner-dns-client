@@ -1,6 +1,5 @@
 import ClientObject from "./ClientObject.js";
 import RecordModel from "./models/RecordModel";
-import HetznerDnsClient from "./HetznerDnsClient.js";
 import Zone from "./Zone";
 
 /**
@@ -66,15 +65,6 @@ class DnsRecord extends ClientObject<RecordModel> {
      * @readonly
      */
     public readonly zoneId = this._data.zone_id;
-
-    /**
-     * Create a new record object
-     * @param {HetznerDnsClient} client - API client instance
-     * @param {RecordModel} data - Raw record data
-     */
-    public constructor(client: HetznerDnsClient, data: RecordModel) {
-        super(client, data);
-    }
 
     /**
      * Get the zone object this record belongs to
