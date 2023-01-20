@@ -3,7 +3,7 @@ import RecordModel from "./RecordModel.js";
 import BaseRecordModel from "./BaseRecordModel";
 
 /**
- * Hetzner DNS zone model
+ * Bulk update records response model
  * @interface
  * @extends {ErrorModel}
  */
