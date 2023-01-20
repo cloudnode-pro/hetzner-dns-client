@@ -1019,7 +1019,7 @@ Hetzner DNS zone model
 - `permission` <code>[**string**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)</code> Permission of the zone
 - `project` <code>[**string**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)</code> Project of the zone
 - `registrar` <code>[**string**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)</code> Zone registrar
-- `status` <code>**verified**</code> Status of the zone
+- `status` <code>**"verified"**</code> Status of the zone
 - `ttl` <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)</code> Default TTL (time to live) in seconds for records in this DNS zone
 - `verified` <code>[**string**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)</code> Zone verification timestamp in ISO 8601 format or empty string
 - `records_count` <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)</code> Number of records in the zone
