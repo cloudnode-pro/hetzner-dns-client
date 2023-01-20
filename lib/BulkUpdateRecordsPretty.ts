@@ -3,7 +3,7 @@ import DnsRecord from "./DnsRecord.js";
 import BulkUpdateRecords from "./models/BulkUpdateRecords";
 
 /**
- * Response from bulk creating records
+ * Response from bulk updating records
  * @class
  * @extends {ClientObject<BulkCreateRecords>}
  */
