@@ -22,7 +22,6 @@ export default class Zone extends ClientObject<ZoneModel> {
      * @type {string}
      * @readonly
      */
-
     public readonly name = this._data.name;
 
     /**
@@ -135,5 +134,17 @@ export default class Zone extends ClientObject<ZoneModel> {
      */
     public async createRecord(name: string, type: DnsRecord.Type, value: string, ttl?: number): Promise<DnsRecord> {
         return await this.client.records.create(this.id, name, type, value, ttl);
+    }
+
+    /**
+     * Create a new primary server for this zone
+     * @param {string} address - See {@link PrimaryServer#address}
+     * @param {number} port - See {@link PrimaryServer#port}
+     * @returns {Promise<PrimaryServer>} - The created primary server object
+     * @throws {ApiError}
+     * @throws {ClientParseError}
+     */
+    public async createPrimaryServer(address: string, port: number): Promise<PrimaryServer> {
+        return await this.client.primaryServers.create(this.id, address, port);
     }
 }
