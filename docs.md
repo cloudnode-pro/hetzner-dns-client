@@ -235,7 +235,7 @@ Create Record
 - `value` <code>[**string**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)</code> See <code>[dnsRecord.value](#dnsrecordvalue)</code>
 - `ttl` <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | [**undefined**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)</code> See <code>[dnsRecord.ttl](#dnsrecordttl)</code>
 - Returns: <code>[**Promise**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[**DnsRecord**](#class-dnsrecord)></code>
-- Throws: <code>[**ApiError**](#class-apierror)</code>, <code>[**ClientParseError**](#class-clientparseeerror)</code>
+- Throws: <code>[**ApiError**](#class-apierror)</code>, <code>[**ClientParseError**](#class-clientparseerror)</code>
 
 <a name="hetznerdnsclientrecordsgetid"></a>
 
@@ -296,7 +296,7 @@ Bulk Update Records
   - `records[].value` <code>[**string**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)</code> See <code>[dnsRecord.value](#dnsrecordvalue)</code>
   - `records[].zoneId` <code>[**string**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)</code> ID of zone the record is associated with. **Note**: Changing the zone of a record is not possible.
 - Returns: <code>[**Promise**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[**BulkUpdateRecordsPretty**](#class-bulkupdaterecordspretty)></code>
-- Throws: <code>[**ApiError**](#class-apierror)</code>, <code>[**ClientParseError**](#class-clientparseeerror)</code>
+- Throws: <code>[**ApiError**](#class-apierror)</code>, <code>[**ClientParseError**](#class-clientparseerror)</code>
 
 <a name="hetznerdnsclientprimaryservers"></a>
 
@@ -493,7 +493,7 @@ Create a primary server for this zone
 ## Class: `DnsRecord`
 Hetzner DNS Record
 
-- Extends: <code>[**ClientObject**](#class-clientobject)&lt;[**RecordModel**](#interface-recordmodel)></code>
+- Extends: <code>[**ClientObject**](#class-clientobjectt)&lt;[**RecordModel**](#interface-recordmodel)></code>
 
 <a name="enum-dnsrecordtype"></a>
 
@@ -694,7 +694,7 @@ Update primary server
   - `options.address` <code>[**string**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [**undefined**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)</code> New server address (see <code>[primaryServer.address](#primaryserveraddress)</code>)
   - `options.port` <code>[**number**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | [**undefined**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)</code> New server port (see <code>[primaryServer.port](#primaryserverport)</code>)
 - Returns: <code>[**Promise**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[**PrimaryServer**](#class-primaryserver)></code> The updated primary server object. **Note**: Avoid using the old object after updating it to avoid inconsistencies. You should use the new primary server object returned by this method.
-- Throws: <code>[**ApiError**](#class-apierror)</code>, <code>[**ClientParseError**](#class-clientparseeerror)</code>
+- Throws: <code>[**ApiError**](#class-apierror)</code>, <code>[**ClientParseError**](#class-clientparseerror)</code>
 
 <a name="primaryserverdelete"></a>
 
