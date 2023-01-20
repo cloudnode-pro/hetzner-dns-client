@@ -77,7 +77,6 @@ export default class PrimaryServer extends ClientObject<PrimaryServerModel> {
      * Delete this primary server
      * @returns {Promise<void>}
      * @throws {ApiError}
-     * @throws {ClientParseError}
      */
     public async delete(): Promise<void> {
         await this.client.primaryServers.delete(this.id);
