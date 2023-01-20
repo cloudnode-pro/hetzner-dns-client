@@ -874,24 +874,24 @@ Valid records
 - Type: <code>[**BaseRecordModel**](#interface-baserecordmodel)[]</code>
 - Read only
 
-<a name="class-bulkuptdaterecordspretty"></a>
+<a name="class-bulkupdaterecordspretty"></a>
 
 ## Class: `BulkUpdateRecordsPretty`
 Response from bulk updating records
 
 - Extends: <code>[**ClientObject**](#class-clientobjectt)&lt;[**BulkUpdateRecords**](#interface-bulkupdaterecords)></code>
 
-<a name="bulkuptdaterecordsprettyfailedrecords"></a>
+<a name="bulkupdaterecordsprettyfailedrecords"></a>
 
-### `bulkUptdateRecordsPretty.failedRecords`
+### `bulkUpdateRecordsPretty.failedRecords`
 Failed records
 
 - Type: <code>[**BaseRecordModel**](#interface-baserecordmodel)[]</code>
 - Read only
 
-<a name="bulkuptdaterecordsprettyrecords"></a>
+<a name="bulkupdaterecordsprettyrecords"></a>
 
-### `bulkUptdateRecordsPretty.records`
+### `bulkUpdateRecordsPretty.records`
 Records that were updated
 
 - Type: <code>[**DnsRecord**](#class-dnsrecord)[]</code>
