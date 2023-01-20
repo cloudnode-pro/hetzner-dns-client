@@ -1,5 +1,4 @@
 /**
- * ClientParseError
  * API client failed to understand and parse the API response
  * @class
  * @extends {Error}

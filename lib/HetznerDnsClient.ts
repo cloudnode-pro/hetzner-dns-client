@@ -40,7 +40,6 @@ class HetznerDnsClient {
     }
 
     /**
-     * ## Zones
      * A secondary zone can be created, by adding a primary server before adding any records.
      */
     public zones = {
@@ -174,9 +173,6 @@ class HetznerDnsClient {
         }
     } as const;
 
-    /**
-     * ## Records
-     */
     public records = {
         /**
          * Get All Records
@@ -321,7 +317,6 @@ class HetznerDnsClient {
     } as const;
 
     /**
-     * ## Primary Servers
      * Primary servers can only be added to a zone, if no records were added to it, yet. By adding a primary server to a newly created zone, it automatically becomes a secondary zone.
      */
     public primaryServers = {
