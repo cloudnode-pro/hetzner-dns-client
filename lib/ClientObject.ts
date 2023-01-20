@@ -44,6 +44,7 @@ export default class ClientObject<T> {
      * Constructor
      * @param {HetznerDnsClient} client - API client instance
      * @param {T} data - Raw data
+     * @internal
      */
     public constructor(client: HetznerDnsClient, data: T) {
         this.#client = client;

@@ -43,6 +43,7 @@ export default class ApiResponse<T extends ErrorModel> {
      * @param {ArrayBuffer} raw - Raw response body
      * @param {RequestInit} options - Request options
      * @param {HetznerDnsClient} client - API client instance used to make the request
+     * @internal
      */
     public constructor(response: Response, raw: ArrayBuffer, options: RequestInit, client: HetznerDnsClient) {
         this.response = response;

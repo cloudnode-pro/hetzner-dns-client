@@ -36,6 +36,7 @@ export default class Zones extends ClientObject<PaginatedZones> {
      * @param {HetznerDnsClient} client - API client instance
      * @param {PaginatedZones} data - Raw data
      * @param {{name?: string, page?: number, perPage?: number, searchName?: string}} [inputOptions] - Options used to fetch this page
+     * @internal
      */
     public constructor(client: HetznerDnsClient, data: PaginatedZones, inputOptions?: {name?: string, page?: number, perPage?: number, searchName?: string}) {
         super(client, data);

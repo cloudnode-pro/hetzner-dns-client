@@ -23,6 +23,7 @@ export default class ClientParseError extends Error {
 
     /**
      * Create a new client parse error
+     * @internal
      */
     public constructor() {
         super();
