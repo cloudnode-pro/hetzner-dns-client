@@ -840,7 +840,7 @@ API client instance
 ### `clientObject._data`
 Raw data
 
-- Type: <code>T</code>
+- Type: <code>**T**</code>
 - Read only
 
 <a name="class-bulkcreaterecordspretty"></a>
