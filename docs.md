@@ -81,7 +81,7 @@
   - [`zones.isComplete`](#zonesiscomplete)
   - [`zones.fetchNextPage()`](#zonesfetchnextpage)
   - [`zones.fetchAllPages()`](#zonesfetchallpages)
-- [Class: ClientObject<T>](#class-clientobjectt)
+- [Class: `ClientObject<T>`](#class-clientobjectt)
   - [`clientObject.client`](#clientobjectclient)
   - [`clientObject._data`](#clientobject_data)
 - [Class: `BulkCreateRecordsPretty`](#class-bulkcreaterecordspretty)
@@ -627,7 +627,7 @@ Delete the record
 ## Class: `PrimaryServer`
 Primary server
 
-- Extends: <code>[**ClientObject**](#class-clientobject)&lt;[**PrimaryServerModel](#interface-primaryservermodel)></code>
+- Extends: <code>[**ClientObject**](#class-clientobjectt)&lt;[**PrimaryServerModel**](#interface-primaryservermodel)></code>
 
 <a name="primaryserverid"></a>
 
