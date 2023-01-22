@@ -6,6 +6,6 @@ import ZoneModel from "./ZoneModel.js";
  * @interface
  * @extends {ErrorModel}
  */
-export default interface ZoneModelWrapped extends ErrorModel{
+export default interface ZoneModelWrapped extends ErrorModel {
     zone: ZoneModel;
 }
