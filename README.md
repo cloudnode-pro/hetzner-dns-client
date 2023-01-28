@@ -2,7 +2,7 @@
 
 [![Hetzner DNS API Version](https://shields.io/badge/v1-%23D50C2D?label=Hetnzner%20DNS%20API&logo=hetzner&labelColor=%2324292E)](https://dns.hetzner.com/api-docs/)
 [![Version](https://img.shields.io/npm/v/hetzner-dns-client.svg)](https://npmjs.org/package/hetzner-dns-client)
-[![Downloads](https://img.shields.io/npm/dm/hetzner-dns-client.svg)](https://npmjs.org/package/hetzner-dns-client)
+[![Downloads](https://img.shields.io/npm/dt/hetzner-dns-client.svg)](https://npmjs.org/package/hetzner-dns-client)
 
 Hetzner DNS API client for Node.js
 
