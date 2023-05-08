@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/cloudnode-pro/hetzner-dns-client#readme",
   "devDependencies": {
-    "@types/node": "^18.11.18",
+    "@types/node": "^20.1.0",
     "typescript": "^5.0.2"
   },
   "dependencies": {
