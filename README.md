@@ -1,3 +1,8 @@
+> [!WARNING]
+> **This project is no longer maintained.** If you wish to continue using it, consider forking the repository and maintaining it yourself. The source code remains available under the original licence.
+>
+> For enquiries, contact: dev+hetzner-dns-client@cloudnode.pro
+
 # Node.js Hetzner DNS API Client
 
 [![Hetzner DNS API Version](https://shields.io/badge/v1-%23D50C2D?label=Hetnzner%20DNS%20API&logo=hetzner&labelColor=%2324292E)](https://dns.hetzner.com/api-docs/)
